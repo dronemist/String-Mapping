@@ -36,3 +36,6 @@
 
 # VSCODE settings file
 .vscode
+
+# Jetbrains IDE file
+.idea

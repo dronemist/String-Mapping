@@ -1,12 +1,7 @@
 #include <iostream>
-#include <string>
-#include <map>
-#include <vector>
 #include "cost.h"
-using namespace std;
 
-/// Map for the cost vector
-#define costDatabase map<char, map<char, int> >
+using namespace std;
 
 /// Definition for a 'for' loop
 #define loop(i, start, end) for(int i = start; i < end; i++)
@@ -23,6 +18,7 @@ int costOfTwoStrings(string string1, string string2, costDatabase &costMap) {
     {
         cost += costMap[string1[i]][string2[i]];
     }
+    return cost;
 }
 
 /// This function computes the conversion cost of a string from x to F(x)
@@ -39,16 +35,17 @@ int conversionCost(string string1, int costOfDash) {
     return dashCount * costOfDash;
 }
 
-// TODO: change parameter to state
 
 /// This function returns the cost of a state
 ///  - Parameters: 
 ///    - costArray: vector containing all the cost
-///    - strings: vector of all F(Xi)
+///    - state: state whose cost is to be calculated
 ///    - costOfDash: cost of the dash
-int cost(costDatabase &costMap, vector<string> &strings, int costOfDash) {
+int costOfState(costDatabase &costMap, state &currentState, int costOfDash) {
     
     int cost = 0; 
+    // TODO: a copy is being formed, fix it!
+    vector<string> strings = currentState.finalStrings;
     // Calculating conversion cost
     loop(i, 0, strings.size())
     {

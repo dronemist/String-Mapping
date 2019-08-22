@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <map>
 #include <sstream>
 #include "fileReader.h"
 
@@ -10,19 +11,43 @@ using namespace std;
 // Definition for a 'for' loop
 #define loop(i, start, end) for(int i = start; i < end; i++)
 
+/// This function converts cost 2-D vector to costDatabase;
+/// - Parameters:
+///   - costVector: 2-D vector
+///   - vocabulary: voacbulary of letters
+costDatabase toCostDatabase(vector<vector<int> > &costVector, string vocabulary) {
+  costDatabase costMap;
+  // Assuming costVector is already square
+  int size = costVector.size();
+  loop(i, 0, size) 
+  {
+    loop(j, 0, size) 
+    {
+      if(i != size - 1 && j != size - 1)
+        costMap[vocabulary[i]][vocabulary[j]] = costVector.at(i).at(j);
+      else if(i == size - 1 && j != size - 1)
+        costMap['_'][vocabulary[j]] = costVector.at(i).at(j);
+      else if(i != size - 1 && j == size - 1)
+        costMap[vocabulary[i]]['_'] = costVector.at(i).at(j);  
+      else
+        costMap['_']['_'] = costVector.at(i).at(j);  
+    }
+  }
+  return costMap;
+}
+
+
 /// This function reads the input.txt file
 /// - Parameter: 
 ///  - fileName: name of the file to be read
-void fileReader(string fileName) {
+void fileReader(string fileName, float &time, string &vocabulary
+, vector<string> & strings, costDatabase &cost, int &extraDashCost) {
     
     ifstream inFile(fileName);
     string line;
-    float time;
     int count = 0;
-    vector<string> vocabulary;
-    vector<string> strings;
-    int vocabularySize, numberOfStrings, extraDashCost;
-    vector<vector<int> > cost;
+    int vocabularySize, numberOfStrings;
+    vector<vector<int> > costVector;
     while (getline(inFile, line)) 
     {
         switch (count) 
@@ -47,11 +72,11 @@ void fileReader(string fileName) {
                 string temp;
                 // Adding the first character
                 getline(ss, temp, ',');
-                vocabulary.push_back(temp);
+                vocabulary += temp;
                 while (getline(ss, temp, ','))
                 {
                     temp = temp.substr(1, temp.length() - 1);
-                    vocabulary.push_back(temp);
+                    vocabulary += temp;
                 }
                 // TODO: handle incorrect input
                 count++;
@@ -90,8 +115,8 @@ void fileReader(string fileName) {
                 {
                     costTemp.push_back(stoi(temp));
                 }
-                cost.push_back(costTemp);
-                if(cost.size() == vocabularySize + 1) 
+                costVector.push_back(costTemp);
+                if(costVector.size() == vocabularySize + 1) 
                     count++;    
                 break;
             }
@@ -99,4 +124,5 @@ void fileReader(string fileName) {
                 break;
         }
     }
+    cost = toCostDatabase(costVector, vocabulary);
 }

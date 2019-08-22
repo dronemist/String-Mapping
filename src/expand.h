@@ -1,12 +1,10 @@
-#ifndef COST_INCLUDE
-#define COST_INCLUDE
+#ifndef EXPAND_H
+#define EXPAND_H
 #include <string>
 #include <vector>
-#include <map>
+#include "cost.h"
 #include "state.h"
-
 /// Map for the cost vector
 typedef std::map<char, std::map<char, int> > costDatabase; 
-
-extern int costOfState(costDatabase &, state &, int);
+extern state nextState(state &, costDatabase &);
 #endif
