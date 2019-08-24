@@ -79,7 +79,8 @@ state randState(int n, vector<string>& originalStrings)
         random();
         loop(j, 0, no_of_dashes)
         {
-            r = rand()%n;
+            random();
+            r = rand()%ans[i].size();
             ans[i] = ans[i].substr(0, r) + '_' + ans[i].substr(r, ans[i].size()-r);
         }
     }
