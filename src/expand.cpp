@@ -13,7 +13,8 @@ using namespace std;
 /// - Parameters:
 ///   - currentState: the current state of the search
 ///   - costMap: the map containg cost of each matching
-state nextState(state &currentState, costDatabase &costMap) {
+///   - extraDashCost: cost of adding an extra dash
+state nextState(state &currentState, costDatabase &costMap, int extraDashCost) {
     // Old and new string vectors
     vector<string> currentStrings = currentState.finalStrings;
     vector<string> newStrings;
@@ -21,10 +22,10 @@ state nextState(state &currentState, costDatabase &costMap) {
     // Old and new strings
     string currentString, newString;
 
-    int minimum;
+    int minimum = costOfState(costMap, currentState, extraDashCost);
 
     // Old and new state
-    state minState, newState;
+    state minState = currentState, newState;
     loop(i, 0, currentStrings.size()) 
     {
         currentString = currentStrings.at(i);
@@ -42,11 +43,11 @@ state nextState(state &currentState, costDatabase &costMap) {
                         // TODO: fix duplication of strings(don't make a newState everytime)
                         swap(newString[j], newString[k]);
                         newStrings.at(i) = newString;
-                        state newState(newStrings);
+                        state newState(newStrings, currentState.originalStrings);
 
                         // Saving the minimum state
                         // TODO: speed up cost
-                        int temp = costOfState(costMap, newState, 5);
+                        int temp = costOfState(costMap, newState, extraDashCost);
                         if(temp < minimum)
                         {
                             minimum = temp;

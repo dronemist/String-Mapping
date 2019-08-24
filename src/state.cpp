@@ -16,12 +16,19 @@ using namespace std;
 // }
 
 /// Constructor for state
-state::state(vector<string> &strings) {
+state::state(vector<string> &strings, vector<string> &originalString) {
     finalStrings = strings;
+    originalStrings = originalString;
 }
 
 /// Constructor for state
 state::state() {
     vector<string> temp;
     finalStrings = temp;
+    originalStrings = temp;
+}
+
+/// This function returns the size of state
+int state::sizeOfState() {
+    return finalStrings.size();
 }

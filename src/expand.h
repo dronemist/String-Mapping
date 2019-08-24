@@ -6,5 +6,10 @@
 #include "state.h"
 /// Map for the cost vector
 typedef std::map<char, std::map<char, int> > costDatabase; 
-extern state nextState(state &, costDatabase &);
+
+/// This function returns the next state in the sequence
+/// - Parameters:
+///   - currentState: the current state of the search
+///   - costMap: the map containg cost of each matching
+extern state nextState(state &, costDatabase &, int);
 #endif

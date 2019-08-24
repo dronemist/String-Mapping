@@ -39,3 +39,7 @@
 
 # Jetbrains IDE file
 .idea
+
+# Executable
+main
+
