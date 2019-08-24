@@ -31,5 +31,11 @@ int main () {
   {
     cout<<n.finalStrings.at(i)<<endl;
   }
-  cout<<costOfState(cost, n, extraDashCost);
+  cout<<costOfState(cost, n, extraDashCost)<<endl;
+    
+  vector<string> l = randState(9,t);
+  loop(j, 0, l.size())
+  {
+      cout<<l.at(j)<<endl;
+  }
 }

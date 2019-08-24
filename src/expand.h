@@ -12,4 +12,5 @@ typedef std::map<char, std::map<char, int> > costDatabase;
 ///   - currentState: the current state of the search
 ///   - costMap: the map containg cost of each matching
 extern state nextState(state &, costDatabase &, int);
+extern std::vector<std::string> randState(int n, std::vector<std::string>& inputStrings);
 #endif

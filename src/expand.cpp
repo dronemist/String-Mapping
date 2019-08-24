@@ -1,5 +1,8 @@
 #include <iostream>
 #include <algorithm>
+#include <stdlib.h>
+#include <cstdlib>
+#include <ctime>
 #include "expand.h"
 
 using namespace std;
@@ -62,3 +65,24 @@ state nextState(state &currentState, costDatabase &costMap, int extraDashCost) {
     return minState;
 }
 
+/// This function returns a random state for restart
+/// - Parameters:
+///   - n: size of the state
+///   - inputStrings: vector consisiting of all the strings
+std::vector<std::string> randState(int n, std::vector<std::string>& inputStrings)
+{
+    std::vector<std::string> ans = inputStrings;
+    int r;
+    loop(i, 0, inputStrings.size())
+    {
+        int no_of_dashes = n - inputStrings.at(i).size();
+        ans[i] = inputStrings.at(i);
+        random();
+        loop(j, 0, no_of_dashes)
+        {
+            r = rand()%n;
+            ans[i] = ans[i].substr(0, r) + '-' + ans[i].substr(r, ans[i].size()-r);
+        }
+    }
+    return ans;
+}
