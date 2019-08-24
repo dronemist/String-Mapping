@@ -6,8 +6,6 @@
 
 using namespace std;
 
-
-
 /// Definition for a 'for' loop
 #define loop(i, start, end) for(int i = start; i < end; i++)
 
@@ -16,7 +14,7 @@ using namespace std;
 ///   - currentState: the current state of the search
 ///   - costMap: the map containg cost of each matching
 ///   - extraDashCost: cost of adding an extra dash
-state nextState(state &currentState, costDatabase &costMap, int extraDashCost) {
+state getNextState(state &currentState, costDatabase &costMap, int extraDashCost) {
     // Old and new string vectors
     vector<string> currentStrings = currentState.finalStrings;
     vector<string> newStrings;

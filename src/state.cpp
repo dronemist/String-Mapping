@@ -3,6 +3,9 @@
 #include "state.h"
 using namespace std;
 
+/// Definition for a 'for' loop
+#define loop(i, start, end) for(int i = start; i < end; i++)
+
 // /// Map for the cost vector
 // typedef map<char, map<char, int> > costDatabase; 
 
@@ -30,5 +33,25 @@ state::state() {
 
 /// This function returns the size of state
 int state::sizeOfState() {
-    return finalStrings.size();
+    if(finalStrings.size() != 0)
+        return finalStrings.at(0).length();
+    else
+        return 0;  
+}
+
+// TODO: optimise string equality check
+/// This function checks for string equality
+bool state::equals(state otherState) {
+    bool isEqual = true;
+    if(sizeOfState() != otherState.sizeOfState())
+        return false;
+    loop(i, 0, finalStrings.size()) 
+    {
+        if(finalStrings.at(i).compare(otherState.finalStrings.at(i)))
+        {
+            isEqual = false;
+            break;
+        }
+    }
+    return isEqual;
 }

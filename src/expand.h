@@ -11,7 +11,7 @@ typedef std::map<char, std::map<char, int> > costDatabase;
 /// - Parameters:
 ///   - currentState: the current state of the search
 ///   - costMap: the map containg cost of each matching
-extern state nextState(state &, costDatabase &, int);
+extern state getNextState(state &, costDatabase &, int);
 
 /// This function returns a random state for restart
 /// - Parameters:

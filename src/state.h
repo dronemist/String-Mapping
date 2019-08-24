@@ -17,5 +17,9 @@ struct state {
 
     /// This function returns the size of state
     int sizeOfState();
+
+    // TODO: optimise string equality check
+    /// This function checks for string equality
+    bool equals(state otherState);
 };
 #endif
