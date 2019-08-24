@@ -20,22 +20,20 @@ int main () {
   costDatabase cost;
   int extraDashCost;
   fileReader("input.txt", time, vocabulary, strings, cost, extraDashCost);
-  string s1 = "ATG_C_";
-  string s2 = "ATGC__";
+  string s1 = "ATGC";
+  string s2 = "ATGC";
   vector<string> t;
   t.push_back(s1);
   t.push_back(s2);
-  state temp(t, t);
-  state n = nextState(temp, cost, extraDashCost);
-  loop(i, 0, n.finalStrings.size())
+  state l = randState(7, t);
+  loop(j, 0, l.finalStrings.size())
   {
-    cout<<n.finalStrings.at(i)<<endl;
+      cout<<l.finalStrings.at(j)<<endl;
   }
-  cout<<costOfState(cost, n, extraDashCost)<<endl;
-    
-  vector<string> l = randState(9,t);
-  loop(j, 0, l.size())
-  {
-      cout<<l.at(j)<<endl;
-  }
+  // state n = nextState(l, cost, extraDashCost);
+  // loop(i, 0, n.finalStrings.size())
+  // {
+  //   cout<<n.finalStrings.at(i)<<endl;
+  // }
+  // cout<<costOfState(cost, n, extraDashCost)<<endl;
 }

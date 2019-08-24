@@ -12,5 +12,10 @@ typedef std::map<char, std::map<char, int> > costDatabase;
 ///   - currentState: the current state of the search
 ///   - costMap: the map containg cost of each matching
 extern state nextState(state &, costDatabase &, int);
-extern std::vector<std::string> randState(int n, std::vector<std::string>& inputStrings);
+
+/// This function returns a random state for restart
+/// - Parameters:
+///   - n: size of the state to be created
+///   - inputStrings: vector consisiting of all the original strings
+extern state randState(int n, std::vector<std::string>& inputStrings);
 #endif
