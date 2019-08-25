@@ -21,7 +21,8 @@ state runLocalSearch(vector<string> &originalStrings, double time,
 costDatabase &cost, int extraDashCost) {
 
     int currentSize = maxLength(originalStrings);
-    state currentState = randState(currentSize, originalStrings), nextState;
+    state currentState = randState(currentSize, originalStrings), nextState, minState;
+    minState = currentState;
     clock_t begin = clock();
     double elapsed_secs = 0;
     // if time finished exit loop
@@ -38,11 +39,12 @@ costDatabase &cost, int extraDashCost) {
         {
             // continue
             currentState = nextState;
+            minState = currentState;
         }
         clock_t end = clock();
         elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
     }
-    return currentState;
+    return minState;
 }
 
 /// This function returns the size of longest string in the vector
