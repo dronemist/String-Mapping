@@ -15,6 +15,7 @@ typedef map<char, map<char, int> > costDatabase;
 #define loop(i, start, end) for(int i = start; i < end; i++)
 
 int main () {
+  srand (time(NULL));
   float time;
   string vocabulary;
   vector<string> strings;
