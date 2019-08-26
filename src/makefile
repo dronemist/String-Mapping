@@ -10,11 +10,15 @@ OUT = main
 all: $(OUT)
 
 # Executable
-$(OUT): main.o fileReader.o state.o cost.o expand.o
-	$(CXX) fileReader.o state.o cost.o expand.o main.o -o main $(CXXFLAGS)
+$(OUT): main.o fileReader.o state.o cost.o expand.o localSearch.o
+	$(CXX) fileReader.o state.o cost.o expand.o localSearch.o main.o -o main $(CXXFLAGS)
 
 # Main
-main.o: main.cpp fileReader.h cost.h expand.h state.h
+main.o: main.cpp fileReader.h cost.h expand.h state.h localSearch.h
+
+# Local search
+localSearch.o: localSearch.cpp state.h expand.h
+	$(CXX) -c localSearch.cpp -o $@
 
 # FileReder
 fileReader.o: fileReader.h

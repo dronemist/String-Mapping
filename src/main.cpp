@@ -5,6 +5,7 @@
 #include "fileReader.h"
 #include "expand.h"
 #include "state.h"
+#include "localSearch.h"
 using namespace std;
 
 /// Map for the cost vector
@@ -20,21 +21,22 @@ int main () {
   costDatabase cost;
   int extraDashCost;
   fileReader("input.txt", time, vocabulary, strings, cost, extraDashCost);
-  string s1 = "ATG_C";
-  string s2 = "ATG_C";
+  string s1 = "QN";
+  string s3 = "_R";
+  string s4 = "_Y";
   vector<string> t;
-  t.push_back(s1);
-  t.push_back(s2);
+  t.push_back(s1);t.push_back(s3);
+  t.push_back(s4);
   state temp(t, t);
-  state l = randState(7, t);
-  loop(j, 0, l.finalStrings.size())
-  {
-      cout<<l.finalStrings.at(j)<<endl;
-  }
-  state n = getNextState(temp, cost, extraDashCost);
+  state n = randState(8, strings);
+  // loop(j, 0, l.finalStrings.size())
+  // {
+  //     cout<<l.finalStrings.at(j)<<endl;
+  // }
+  // state n = runLocalSearch(strings, 1, cost, extraDashCost);
   loop(i, 0, n.finalStrings.size())
   {
     cout<<n.finalStrings.at(i)<<endl;
   }
-  cout<<costOfState(cost, n, extraDashCost)<<endl;
+  // cout<<costOfState(cost, temp, extraDashCost)<<endl;
 }

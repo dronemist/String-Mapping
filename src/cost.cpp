@@ -88,7 +88,7 @@ int costOfState(costDatabase &costMap, state &currentState, int costOfDash) {
             cost += costOfTwoStrings(strings.at(i), strings.at(j), costMap);
         }
     }
-    cost = cost - (costOfDash * numberOfDashesAligned * sizeOfState) - 
-    (((sizeOfState) * (sizeOfState - 1) / 2) * costMap['_']['_']);
+    // cost = cost - (costOfDash * numberOfDashesAligned * sizeOfState) - 
+    // (((sizeOfState) * (sizeOfState - 1) / 2) * costMap['_']['_']);
     return cost;
 }

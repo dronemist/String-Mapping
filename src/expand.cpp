@@ -48,7 +48,7 @@ state getNextState(state &currentState, costDatabase &costMap, int extraDashCost
                         // Saving the minimum state
                         // TODO: speed up cost
                         int temp = costOfState(costMap, newState, extraDashCost);
-                        if(temp < minimum)
+                        if(temp <= minimum)
                         {
                             minimum = temp;
                             minState = newState; 
