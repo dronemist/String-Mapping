@@ -2,7 +2,6 @@
 #include <vector>
 #include <string>
 #include <ctime>
-#include "state.h"
 #include "expand.h"
 
 using namespace std;
@@ -12,6 +11,19 @@ typedef std::map<char, std::map<char, int> > costDatabase;
 
 /// Definition for a 'for' loop
 #define loop(i, start, end) for(int i = start; i < end; i++)
+
+
+/// This function returns the size of longest string in the vector
+/// - Parameters
+///   - strings: the vector to evaluate
+int maxLength(vector<string> strings) {
+    int maximum = 0;
+    loop(i, 0, strings.size())
+    {
+        maximum = max(maximum, int(strings.at(i).size()));
+    }
+    return maximum;
+}
 
 /// This function runs the local search
 /// - Parameters
@@ -39,22 +51,19 @@ costDatabase &cost, int extraDashCost) {
         {
             // continue
             currentState = nextState;
-            minState = currentState;
+            if(costOfState(cost, minState, extraDashCost) > costOfState(cost, currentState, extraDashCost))
+            {
+                minState = currentState;
+            }
         }
         clock_t end = clock();
         elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+        loop(i, 0, currentState.finalStrings.size())
+        {
+            cout<<currentState.finalStrings.at(i)<<endl;
+        }
+        cout<<costOfState(cost, currentState, extraDashCost)<<endl;
+        
     }
     return minState;
-}
-
-/// This function returns the size of longest string in the vector
-/// - Parameters
-///   - strings: the vector to evaluate
-int maxLength(vector<string> strings) {
-    int maximum = 0;
-    loop(i, 0, strings.size())
-    {
-        maximum = max(maximum, int(strings.at(i).size()));
-    }
-    return maximum;
 }

@@ -48,7 +48,7 @@ state getNextState(state &currentState, costDatabase &costMap, int extraDashCost
                         // Saving the minimum state
                         // TODO: speed up cost
                         int temp = costOfState(costMap, newState, extraDashCost);
-                        if(temp < minimum)
+                        if(temp <= minimum)
                         {
                             minimum = temp;
                             minState = newState; 
@@ -74,10 +74,8 @@ state randState(int n, vector<string>& originalStrings)
     {
         int no_of_dashes = n - originalStrings.at(i).size();
         ans[i] = originalStrings.at(i);
-        random();
         loop(j, 0, no_of_dashes)
         {
-            random();
             r = rand()%ans[i].size();
             ans[i] = ans[i].substr(0, r) + '_' + ans[i].substr(r, ans[i].size()-r);
         }
