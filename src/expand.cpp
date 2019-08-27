@@ -34,10 +34,11 @@ state getNextState(state &currentState, costDatabase &costMap, int extraDashCost
         {
             if (currentString[j] == '_')
             {
-                newString = currentString;
+                
                 // If we get a dash
                 loop(k, max(0, j - 1), min(int(currentString.length()), j + 2))
                 {
+                    newString = currentString;
                     if(currentString[k] != '_')
                     {
                         // TODO: fix duplication of strings(don't make a newState everytime)
@@ -48,7 +49,7 @@ state getNextState(state &currentState, costDatabase &costMap, int extraDashCost
                         // Saving the minimum state
                         // TODO: speed up cost
                         int temp = costOfState(costMap, newState, extraDashCost);
-                        if(temp <= minimum)
+                        if(temp < minimum)
                         {
                             minimum = temp;
                             minState = newState; 
