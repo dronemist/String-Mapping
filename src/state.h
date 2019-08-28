@@ -1,6 +1,7 @@
 #ifndef STATE_H
 #define STATE_H
 #include <string>
+#include "fileReader.h"
 #include <vector>
 struct state {
     /// original strings without dashes
@@ -12,7 +13,7 @@ struct state {
     /// Returns the cost of the state
     // int cost(costDatabase &, int);
     
-    state(std::vector<std::string>, std::vector<std::string>);
+    state(std::vector<std::string>);
     state();
 
     /// This function returns the cost of state

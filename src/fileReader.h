@@ -25,5 +25,4 @@ extern int extraDashCost;
 /// Strings to match
 extern std::vector<std::string> strings;
 
-
 #endif

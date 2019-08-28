@@ -17,21 +17,21 @@ $(OUT): main.o fileReader.o state.o cost.o expand.o localSearch.o
 main.o: main.cpp fileReader.h cost.h expand.h state.h localSearch.h
 
 # Local search
-localSearch.o: localSearch.cpp state.h expand.h
+localSearch.o: localSearch.cpp state.h expand.h fileReader.h
 	$(CXX) -c localSearch.cpp -o $@
 
 # FileReder
 fileReader.o: fileReader.h
 
 # State
-state.o: state.h
+state.o: state.h fileReader.h
 
 # cost
-cost.o: cost.cpp cost.h state.h
+cost.o: cost.cpp cost.h state.h fileReader.h
 	$(CXX) -c cost.cpp -o $@
 
 # Expand
-expand.o: expand.cpp expand.h cost.h state.h
+expand.o: expand.cpp expand.h cost.h state.h fileReader.h
 	$(CXX) -c expand.cpp -o $@
 
 # Clean

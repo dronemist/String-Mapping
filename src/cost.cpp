@@ -84,7 +84,7 @@ int costFromLastState(state &currentState, int i, int j, int k) {
     int currCost = costOfIthPosition(currentState, i, k) +
     costOfIthPosition(currentState, j, k);
     // New state
-    state newState(currentState.finalStrings, currentState.originalStrings);
+    state newState(currentState.finalStrings);
     swap(newState.finalStrings.at(k)[i], newState.finalStrings.at(k)[j]); 
 
     int newCost = costOfIthPosition(newState, i, k) +

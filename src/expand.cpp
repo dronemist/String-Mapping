@@ -45,7 +45,7 @@ state getNextState(state &currentState) {
                     int temp = costFromLastState(currentState, j, k, i);
                     if(temp < minimum)
                     {
-                        state newState(newStrings, currentState.originalStrings);
+                        state newState(newStrings);
                         newState.cost = temp;
                         minimum = temp;
                         minState = newState; 
@@ -61,7 +61,7 @@ state getNextState(state &currentState) {
                     int temp = costFromLastState(currentState, j, k, i);
                     if(temp < minimum)
                     {
-                        state newState(newStrings, currentState.originalStrings);
+                        state newState(newStrings);
                         newState.cost = temp;
                         minimum = temp;
                         minState = newState; 
@@ -104,18 +104,18 @@ state getNextState(state &currentState) {
 /// - Parameters:
 ///   - n: size of the state to be created
 ///   - originalStrings: vector consisiting of all the original strings
-state randState(int n, vector<string>& originalStrings)
+state randState(int n)
 {
-    vector<string> ans = originalStrings;
+    vector<string> ans = strings;
     // Better random then rand()
     random_device rd;
     default_random_engine rng(rd());
     uniform_int_distribution<> distribution(0, n-1);
     int r;
-    loop(i, 0, originalStrings.size())
+    loop(i, 0, strings.size())
     {
-        int no_of_dashes = n - originalStrings.at(i).size();
-        ans[i] = originalStrings.at(i);
+        int no_of_dashes = n - strings.at(i).size();
+        ans[i] = strings.at(i);
         loop(j, 0, no_of_dashes)
         {
             r = distribution(rng)%ans[i].size();
@@ -125,5 +125,5 @@ state randState(int n, vector<string>& originalStrings)
             ans[i] = ans[i].substr(0, r) + '-' + ans[i].substr(r, ans[i].size()-r);
         }
     }
-    return state(ans, originalStrings);
+    return state(ans);
 }

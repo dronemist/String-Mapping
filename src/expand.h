@@ -17,5 +17,5 @@ extern state getNextState(state &);
 /// - Parameters:
 ///   - n: size of the state to be created
 ///   - inputStrings: vector consisiting of all the original strings
-extern state randState(int n, std::vector<std::string>& inputStrings);
+extern state randState(int n);
 #endif

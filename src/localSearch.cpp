@@ -33,7 +33,7 @@ int maxLength() {
 state runLocalSearch() {
 
     int currentSize = maxLength();
-    state currentState = randState(currentSize, strings), nextState, minState;
+    state currentState = randState(currentSize), nextState, minState;
     currentState.cost = costOfState(currentState);
 
     minState = currentState;
@@ -47,7 +47,7 @@ state runLocalSearch() {
         {
             // Random restart
             // currentSize++;
-            currentState = randState(currentSize, strings);
+            currentState = randState(currentSize);
             currentState.cost = costOfState(currentState);
             // loop(i, 0, currentState.finalStrings.size())
             // {

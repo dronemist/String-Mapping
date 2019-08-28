@@ -8,14 +8,12 @@
 #include "localSearch.h"
 using namespace std;
 
-/// Map for the cost vector
-typedef map<char, map<char, int> > costDatabase; 
-
 /// Definition for a 'for' loop
 #define loop(i, start, end) for(int i = start; i < end; i++)
 
 int main () {
   fileReader("input.txt");
+  totalTime = 20;
   // string s1 = "--------U-Q------";
   // string s3 = "-UUS----M-MQSI---";
   // string s2 = "---S------I-UI---";
@@ -31,7 +29,7 @@ int main () {
   t.push_back(s1);t.push_back(s2);t.push_back(s3);
   // t.push_back(s4);t.push_back(s5);t.push_back(s6);
   // t.push_back(s7);t.push_back(s8);
-  state temp(t, t);
+  state temp(t);
   // temp.cost = costOfState(cost, temp, extraDashCost);
   // state p = randState(17, strings);
   // loop(j, 0, l.finalStrings.size())
