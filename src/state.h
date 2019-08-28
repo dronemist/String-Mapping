@@ -20,6 +20,6 @@ struct state {
 
     // TODO: optimise string equality check
     /// This function checks for string equality
-    bool equals(state otherState);
+    bool equals(state &);
 };
 #endif

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <cstdlib>
+#include <random>
 #include <ctime>
 #include "expand.h"
 
@@ -32,30 +33,59 @@ state getNextState(state &currentState, costDatabase &costMap, int extraDashCost
         newStrings = currentStrings;
         loop(j, 0, currentString.length())
         {
-            if (currentString[j] == '_')
+            if (currentString[j] != '-')
             {
-                
-                // If we get a dash
-                loop(k, max(0, j - 1), min(int(currentString.length()), j + 2))
+                int k = max(j - 1, 0);
+                while(k >= 0 && currentString[k] == '-')
                 {
                     newString = currentString;
-                    if(currentString[k] != '_')
+                    swap(newString[j], newString[k]);
+                    newStrings.at(i) = newString;
+                    state newState(newStrings, currentState.originalStrings);
+                    int temp = costOfState(costMap, newState, extraDashCost);
+                    if(temp < minimum)
                     {
-                        // TODO: fix duplication of strings(don't make a newState everytime)
-                        swap(newString[j], newString[k]);
-                        newStrings.at(i) = newString;
-                        state newState(newStrings, currentState.originalStrings);
-
-                        // Saving the minimum state
-                        // TODO: speed up cost
-                        int temp = costOfState(costMap, newState, extraDashCost);
-                        if(temp < minimum)
-                        {
-                            minimum = temp;
-                            minState = newState; 
-                        }
+                        minimum = temp;
+                        minState = newState; 
                     }
-                }  
+                    k--;
+                }
+                k = min(j + 1, int(currentString.length() - 1));
+                while(k < currentString.length() && currentString[k] == '-')
+                {
+                    newString = currentString;
+                    swap(newString[j], newString[k]);
+                    newStrings.at(i) = newString;
+                    state newState(newStrings, currentState.originalStrings);
+                    int temp = costOfState(costMap, newState, extraDashCost);
+                    if(temp < minimum)
+                    {
+                        minimum = temp;
+                        minState = newState; 
+                    }
+                    k++;
+                }
+                // If we get a dash
+                // loop(k, max(0, j - 1), min(int(currentString.length()), j + 2))
+                // {
+                //     newString = currentString;
+                //     if(currentString[k] != '-')
+                //     {
+                //         // TODO: fix duplication of strings(don't make a newState everytime)
+                //         swap(newString[j], newString[k]);
+                //         newStrings.at(i) = newString;
+                //         state newState(newStrings, currentState.originalStrings);
+
+                //         // Saving the minimum state
+                //         // TODO: speed up cost
+                //         int temp = costOfState(costMap, newState, extraDashCost);
+                //         if(temp < minimum)
+                //         {
+                //             minimum = temp;
+                //             minState = newState; 
+                //         }
+                //     }
+                // }  
             }
                     
         }
@@ -70,6 +100,10 @@ state getNextState(state &currentState, costDatabase &costMap, int extraDashCost
 state randState(int n, vector<string>& originalStrings)
 {
     vector<string> ans = originalStrings;
+    // Better random then rand()
+    random_device rd;
+    default_random_engine rng(rd());
+    uniform_int_distribution<> distribution(0, n-1);
     int r;
     loop(i, 0, originalStrings.size())
     {
@@ -77,8 +111,11 @@ state randState(int n, vector<string>& originalStrings)
         ans[i] = originalStrings.at(i);
         loop(j, 0, no_of_dashes)
         {
-            r = rand()%ans[i].size();
-            ans[i] = ans[i].substr(0, r) + '_' + ans[i].substr(r, ans[i].size()-r);
+            r = distribution(rng)%ans[i].size();
+            if(r == ans[i].size() - 1)
+            ans[i] = ans[i] + '-';
+            else
+            ans[i] = ans[i].substr(0, r) + '-' + ans[i].substr(r, ans[i].size()-r);
         }
     }
     return state(ans, originalStrings);

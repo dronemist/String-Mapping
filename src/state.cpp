@@ -41,7 +41,7 @@ int state::sizeOfState() {
 
 // TODO: optimise string equality check
 /// This function checks for string equality
-bool state::equals(state otherState) {
+bool state::equals(state &otherState) {
     bool isEqual = true;
     if(sizeOfState() != otherState.sizeOfState())
         return false;

@@ -26,11 +26,11 @@ costDatabase toCostDatabase(vector<vector<int> > &costVector, string vocabulary)
       if(i != size - 1 && j != size - 1)
         costMap[vocabulary[i]][vocabulary[j]] = costVector.at(i).at(j);
       else if(i == size - 1 && j != size - 1)
-        costMap['_'][vocabulary[j]] = costVector.at(i).at(j);
+        costMap['-'][vocabulary[j]] = costVector.at(i).at(j);
       else if(i != size - 1 && j == size - 1)
-        costMap[vocabulary[i]]['_'] = costVector.at(i).at(j);  
+        costMap[vocabulary[i]]['-'] = costVector.at(i).at(j);  
       else
-        costMap['_']['_'] = costVector.at(i).at(j);  
+        costMap['-']['-'] = costVector.at(i).at(j);  
     }
   }
   return costMap;

@@ -29,7 +29,7 @@ int conversionCost(string string1, int costOfDash) {
     int dashCount = 0;
     loop(i, 0, string1.length())
     {
-        if(string1[i] == '_')
+        if(string1[i] == '-')
             dashCount++;
     }
     return dashCount * costOfDash;
@@ -49,7 +49,7 @@ int numberOfAlignedDashes(state &currentState) {
         bool dashAligned = true;
         loop(i, 0, currentState.finalStrings.size())
         {
-            if(currentState.finalStrings.at(i)[j] != '_')
+            if(currentState.finalStrings.at(i)[j] != '-')
             {
                 dashAligned = false;
                 break;
@@ -71,7 +71,7 @@ int numberOfAlignedDashes(state &currentState) {
 int costOfState(costDatabase &costMap, state &currentState, int costOfDash) {
     
     int cost = 0;
-    int sizeOfState = currentState.sizeOfState(); 
+    int sizeOfState = currentState.finalStrings.size(); 
     // TODO: a copy is being formed, fix it!
     vector<string> strings = currentState.finalStrings;
     // Calculating conversion cost
@@ -89,6 +89,6 @@ int costOfState(costDatabase &costMap, state &currentState, int costOfDash) {
         }
     }
     // cost = cost - (costOfDash * numberOfDashesAligned * sizeOfState) - 
-    // (((sizeOfState) * (sizeOfState - 1) / 2) * costMap['_']['_']);
+    // (((sizeOfState) * (sizeOfState - 1) / 2) * costMap['-']['-']);
     return cost;
 }

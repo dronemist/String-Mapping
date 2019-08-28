@@ -33,8 +33,10 @@ state runLocalSearch(vector<string> &originalStrings, double time,
 costDatabase &cost, int extraDashCost) {
 
     int currentSize = maxLength(originalStrings);
-    state currentState = randState(currentSize, originalStrings), nextState, minState;
+    // currentSize += 3;
+    state currentState = randState(17, originalStrings), nextState, minState, previousState;
     minState = currentState;
+    previousState = currentState;
     clock_t begin = clock();
     double elapsed_secs = 0;
     // if time finished exit loop
@@ -44,8 +46,13 @@ costDatabase &cost, int extraDashCost) {
         if(nextState.equals(currentState))
         {
             // Random restart
-            currentSize++;
-            currentState = randState(currentSize, originalStrings);
+            // currentSize++;
+            currentState = randState(17, originalStrings);
+            // loop(i, 0, currentState.finalStrings.size())
+            // {
+            //     cout<<currentState.finalStrings.at(i)<<endl;
+            // }
+            // cout<<costOfState(cost, currentState, extraDashCost)<<endl;
         }
         else
         {
@@ -58,11 +65,6 @@ costDatabase &cost, int extraDashCost) {
         }
         clock_t end = clock();
         elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
-        loop(i, 0, currentState.finalStrings.size())
-        {
-            cout<<currentState.finalStrings.at(i)<<endl;
-        }
-        cout<<costOfState(cost, currentState, extraDashCost)<<endl;
         
     }
     return minState;
