@@ -12,11 +12,14 @@ struct state {
     /// Returns the cost of the state
     // int cost(costDatabase &, int);
     
-    state(std::vector<std::string> &, std::vector<std::string> &);
+    state(std::vector<std::string>, std::vector<std::string>);
     state();
 
-    /// This function returns the size of state
+    /// This function returns the cost of state
     int sizeOfState();
+
+    /// The cost of the state
+    int cost;
 
     // TODO: optimise string equality check
     /// This function checks for string equality

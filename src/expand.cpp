@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <cstdlib>
 #include <random>
+#include <cmath>
 #include <ctime>
 #include "expand.h"
 
@@ -15,7 +16,7 @@ using namespace std;
 ///   - currentState: the current state of the search
 ///   - costMap: the map containg cost of each matching
 ///   - extraDashCost: cost of adding an extra dash
-state getNextState(state &currentState, costDatabase &costMap, int extraDashCost) {
+state getNextState(state &currentState) {
     // Old and new string vectors
     vector<string> currentStrings = currentState.finalStrings;
     vector<string> newStrings;
@@ -23,7 +24,7 @@ state getNextState(state &currentState, costDatabase &costMap, int extraDashCost
     // Old and new strings
     string currentString, newString;
 
-    int minimum = costOfState(costMap, currentState, extraDashCost);
+    int minimum = currentState.cost;
 
     // Old and new state
     state minState = currentState, newState;
@@ -41,10 +42,11 @@ state getNextState(state &currentState, costDatabase &costMap, int extraDashCost
                     newString = currentString;
                     swap(newString[j], newString[k]);
                     newStrings.at(i) = newString;
-                    state newState(newStrings, currentState.originalStrings);
-                    int temp = costOfState(costMap, newState, extraDashCost);
+                    int temp = costFromLastState(currentState, j, k, i);
                     if(temp < minimum)
                     {
+                        state newState(newStrings, currentState.originalStrings);
+                        newState.cost = temp;
                         minimum = temp;
                         minState = newState; 
                     }
@@ -56,10 +58,11 @@ state getNextState(state &currentState, costDatabase &costMap, int extraDashCost
                     newString = currentString;
                     swap(newString[j], newString[k]);
                     newStrings.at(i) = newString;
-                    state newState(newStrings, currentState.originalStrings);
-                    int temp = costOfState(costMap, newState, extraDashCost);
+                    int temp = costFromLastState(currentState, j, k, i);
                     if(temp < minimum)
                     {
+                        state newState(newStrings, currentState.originalStrings);
+                        newState.cost = temp;
                         minimum = temp;
                         minState = newState; 
                     }
@@ -84,6 +87,10 @@ state getNextState(state &currentState, costDatabase &costMap, int extraDashCost
                 //             minimum = temp;
                 //             minState = newState; 
                 //         }
+                //         // else {
+                //         //     if(randomNumber < pow(M_E, minimum - temp))
+                //         //         return newState;
+                //         // }
                 //     }
                 // }  
             }

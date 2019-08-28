@@ -11,12 +11,18 @@ using namespace std;
 // Definition for a 'for' loop
 #define loop(i, start, end) for(int i = start; i < end; i++)
 
+/// Main cost database
+costDatabase costMap;
+string vocabulary;
+float totalTime;
+int extraDashCost;
+vector<string> strings;
+
 /// This function converts cost 2-D vector to costDatabase;
 /// - Parameters:
 ///   - costVector: 2-D vector
-///   - vocabulary: voacbulary of letters
-costDatabase toCostDatabase(vector<vector<int> > &costVector, string vocabulary) {
-  costDatabase costMap;
+///   - vocabulary: vocabulary of letters
+void toCostDatabase(vector<vector<int> > &costVector) {
   // Assuming costVector is already square
   int size = costVector.size();
   loop(i, 0, size) 
@@ -33,15 +39,13 @@ costDatabase toCostDatabase(vector<vector<int> > &costVector, string vocabulary)
         costMap['-']['-'] = costVector.at(i).at(j);  
     }
   }
-  return costMap;
 }
 
 
 /// This function reads the input.txt file
 /// - Parameter: 
 ///  - fileName: name of the file to be read
-void fileReader(string fileName, float &time, string &vocabulary
-, vector<string> & strings, costDatabase &cost, int &extraDashCost) {
+void fileReader(string fileName) {
     
     ifstream inFile(fileName);
     string line;
@@ -55,7 +59,7 @@ void fileReader(string fileName, float &time, string &vocabulary
             case 0:
             {
                 // Time is the 0th line
-                time = stof(line);
+                totalTime = stof(line);
                 count++;
                 break;
             }
@@ -124,5 +128,5 @@ void fileReader(string fileName, float &time, string &vocabulary
                 break;
         }
     }
-    cost = toCostDatabase(costVector, vocabulary);
+    toCostDatabase(costVector);
 }

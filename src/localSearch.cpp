@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <ctime>
+#include <random>
 #include "expand.h"
 
 using namespace std;
@@ -16,7 +17,7 @@ typedef std::map<char, std::map<char, int> > costDatabase;
 /// This function returns the size of longest string in the vector
 /// - Parameters
 ///   - strings: the vector to evaluate
-int maxLength(vector<string> strings) {
+int maxLength() {
     int maximum = 0;
     loop(i, 0, strings.size())
     {
@@ -29,25 +30,25 @@ int maxLength(vector<string> strings) {
 /// - Parameters
 ///   - originalStrings: the original strings
 ///   - time: time in seconds to run the local search for
-state runLocalSearch(vector<string> &originalStrings, double time,
-costDatabase &cost, int extraDashCost) {
+state runLocalSearch() {
 
-    int currentSize = maxLength(originalStrings);
-    // currentSize += 3;
-    state currentState = randState(17, originalStrings), nextState, minState, previousState;
+    int currentSize = maxLength();
+    state currentState = randState(currentSize, strings), nextState, minState;
+    currentState.cost = costOfState(currentState);
+
     minState = currentState;
-    previousState = currentState;
     clock_t begin = clock();
     double elapsed_secs = 0;
     // if time finished exit loop
-    while (elapsed_secs < time)
+    while (elapsed_secs < totalTime)
     {
-        nextState = getNextState(currentState, cost, extraDashCost);
+        nextState = getNextState(currentState);
         if(nextState.equals(currentState))
         {
             // Random restart
             // currentSize++;
-            currentState = randState(17, originalStrings);
+            currentState = randState(currentSize, strings);
+            currentState.cost = costOfState(currentState);
             // loop(i, 0, currentState.finalStrings.size())
             // {
             //     cout<<currentState.finalStrings.at(i)<<endl;
@@ -58,7 +59,7 @@ costDatabase &cost, int extraDashCost) {
         {
             // continue
             currentState = nextState;
-            if(costOfState(cost, minState, extraDashCost) > costOfState(cost, currentState, extraDashCost))
+            if(minState.cost > currentState.cost)
             {
                 minState = currentState;
             }

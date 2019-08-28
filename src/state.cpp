@@ -1,25 +1,15 @@
 #include <iostream>
 #include <string>
 #include "state.h"
+// #include "cost.h"
 using namespace std;
 
 /// Definition for a 'for' loop
 #define loop(i, start, end) for(int i = start; i < end; i++)
 
-// /// Map for the cost vector
-// typedef map<char, map<char, int> > costDatabase; 
-
-// /// This function returns the cost of the state
-// /// - Parameters: 
-// ///   - costMap: the cost map
-// ///   - costOfDash: cost of extra dash
-// int state::cost(costDatabase &costMap, int costOfDash)
-// {
-//     costOfState(costMap, *this, costOfDash);
-// }
-
 /// Constructor for state
-state::state(vector<string> &strings, vector<string> &originalString) {
+// TODO: calculate cost in the constructor
+state::state(vector<string> strings, vector<string> originalString) {
     finalStrings = strings;
     originalStrings = originalString;
 }
@@ -39,7 +29,6 @@ int state::sizeOfState() {
         return 0;  
 }
 
-// TODO: optimise string equality check
 /// This function checks for string equality
 bool state::equals(state &otherState) {
     bool isEqual = true;
