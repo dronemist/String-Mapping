@@ -3,16 +3,25 @@
 #include <string>
 #include <ctime>
 #include <random>
+#include <fstream>
 #include "expand.h"
 
 using namespace std;
 
-/// Map for the cost vector
-typedef std::map<char, std::map<char, int> > costDatabase; 
-
 /// Definition for a 'for' loop
 #define loop(i, start, end) for(int i = start; i < end; i++)
 
+/// This function writes to a file
+void write(state &minState) {
+    ofstream fout;
+    fout.open(outputFileName);
+    loop(j, 0, minState.finalStrings.size()-1)
+    {
+        fout<<minState.finalStrings.at(j)<<"\n";
+    }
+    fout<<minState.finalStrings.at(minState.finalStrings.size()-1);
+    fout.close();
+}
 
 /// This function returns the size of longest string in the vector
 /// - Parameters
@@ -33,13 +42,13 @@ int maxLength() {
 state runLocalSearch() {
 
     int currentSize = maxLength();
-    currentSize = 17;
     state currentState = randState(currentSize), nextState, minState;
     currentState.cost = costOfState(currentState);
-    int numberOfRandomRestarts = 0;
     minState = currentState;
+    write(minState);
     clock_t begin = clock();
     double elapsed_secs = 0;
+    float currentRunningTime = totalTime / currentSize;
     // if time finished exit loop
     while (elapsed_secs < totalTime)
     {
@@ -47,22 +56,13 @@ state runLocalSearch() {
         if(nextState.equals(currentState))
         {
             // Random restart
-            // currentSize++;
-            // if(numberOfRandomRestarts == 0) {
-            //     currentSize++;
-            //     numberOfRandomRestarts = 21;
-            // }
-            // cout<<numberOfRandomRestarts++<<endl;
+            if(elapsed_secs > currentRunningTime)
+            {
+                currentSize++;
+                currentRunningTime += currentRunningTime;
+            }
             currentState = randState(currentSize);
             currentState.cost = costOfState(currentState);
-            // if(currentState.cost == 706)
-            // break;
-            // loop(i, 0, currentState.finalStrings.size())
-            // {
-            //     cout<<currentState.finalStrings.at(i)<<endl;
-            // }
-            // cout<<currentState.cost<<endl;
-            // numberOfRandomRestarts--;
         }
         else
         {
@@ -71,6 +71,7 @@ state runLocalSearch() {
             if(minState.cost > currentState.cost)
             {
                 minState = currentState;
+                write(minState);
             }
         }
         clock_t end = clock();

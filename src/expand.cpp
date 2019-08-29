@@ -106,7 +106,7 @@ state getNextState(state &currentState) {
 ///   - originalStrings: vector consisiting of all the original strings
 state randState(int n)
 {
-    vector<string> ans = strings;
+    vector<string> ans;
     // Better random then rand()
     random_device rd;
     default_random_engine rng(rd());
@@ -114,16 +114,22 @@ state randState(int n)
     int r;
     loop(i, 0, strings.size())
     {
-        int no_of_dashes = n - strings.at(i).size();
-        ans[i] = strings.at(i);
-        loop(j, 0, no_of_dashes)
+        string currentString = strings.at(i);
+        int sizeOfString = currentString.size();
+        string ansTemp(sizeOfString, '*');
+        int no_of_dashes = n - sizeOfString;
+        ansTemp += string(no_of_dashes, '-');
+        shuffle(ansTemp.begin(), ansTemp.end(), rng);
+        int k = 0;
+        loop(j, 0, n)
         {
-            r = distribution(rng)%ans[i].size();
-            if(r == ans[i].size() - 1)
-            ans[i] = ans[i] + '-';
-            else
-            ans[i] = ans[i].substr(0, r) + '-' + ans[i].substr(r, ans[i].size()-r);
+            if(ansTemp[j] == '*')
+            {
+                ansTemp[j] = currentString[k];
+                k++;
+            }
         }
+        ans.push_back(ansTemp);
     }
     return state(ans);
 }

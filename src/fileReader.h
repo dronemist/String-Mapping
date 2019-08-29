@@ -26,4 +26,6 @@ extern int extraDashCost;
 /// Strings to match
 extern std::vector<std::string> strings;
 
+extern std::string outputFileName;
+
 #endif

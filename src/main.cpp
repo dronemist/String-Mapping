@@ -1,6 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <map>
+#include <sstream>
 #include "cost.h"
 #include "fileReader.h"
 #include "expand.h"
@@ -8,38 +9,40 @@
 #include "localSearch.h"
 using namespace std;
 
+string outputFileName;
 /// Definition for a 'for' loop
 #define loop(i, start, end) for(int i = start; i < end; i++)
 
-int main () {
-  fileReader("testcase3.txt");
-  totalTime = 10;
-  cout<<totalTime<<endl;
-  cout<<vocabulary.size()<<endl;
-  cout<<vocabulary<<endl;
-  cout<<strings.size()<<endl;
-  loop(i, 0, strings.size())
-  {
-    cout<<strings.at(i)<<endl;
-  }
-  cout<<extraDashCost<<endl;
-  int size = vocabulary.size()+1;
-  loop(i, 0, vocabulary.size() + 1)
-  {
-    loop(j, 0, vocabulary.size() + 1)
-    {
-      if(i != size - 1 && j != size - 1)
-        cout<< costMap[vocabulary[i]][vocabulary[j]]; 
-      else if(i == size - 1 && j != size - 1)
-        cout<<costMap['-'][vocabulary[j]]; 
-      else if(i != size - 1 && j == size - 1)
-        cout<<costMap[vocabulary[i]]['-'];   
-      else
-        cout<<costMap['-']['-']; 
-      cout<<" "; 
-    }
-    cout<<endl;
-  }
+int main (int argc, char **argv) {
+  fileReader(string(argv[argc - 2]));
+  outputFileName = argv[argc - 1];
+  totalTime = 1;
+  // cout<<totalTime<<endl;
+  // cout<<vocabulary.size()<<endl;
+  // cout<<vocabulary<<endl;
+  // cout<<strings.size()<<endl;
+  // loop(i, 0, strings.size())
+  // {
+  //   cout<<strings.at(i)<<endl;
+  // }
+  // cout<<extraDashCost<<endl;
+  // int size = vocabulary.size()+1;
+  // loop(i, 0, vocabulary.size() + 1)
+  // {
+  //   loop(j, 0, vocabulary.size() + 1)
+  //   {
+  //     if(i != size - 1 && j != size - 1)
+  //       cout<< costMap[vocabulary[i]][vocabulary[j]]; 
+  //     else if(i == size - 1 && j != size - 1)
+  //       cout<<costMap['-'][vocabulary[j]]; 
+  //     else if(i != size - 1 && j == size - 1)
+  //       cout<<costMap[vocabulary[i]]['-'];   
+  //     else
+  //       cout<<costMap['-']['-']; 
+  //     cout<<" "; 
+  //   }
+  //   cout<<endl;
+  // }
   // string s1 = "--------U-Q------";
   // string s3 = "-UUS----M-MQSI---";
   // string s2 = "---S------I-UI---";

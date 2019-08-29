@@ -121,5 +121,6 @@ void fileReader(string fileName) {
                 break;
         }
     }
+    inFile.close();
     toCostDatabase(costVector);
 }

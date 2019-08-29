@@ -41,5 +41,6 @@
 .idea
 
 # Executable
-main
-
+src/main
+# .txt
+*.txt
