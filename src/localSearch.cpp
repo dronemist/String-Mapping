@@ -50,7 +50,7 @@ void runLocalSearch() {
     float currentRunningTime = totalTime / currentSize;
     float runPerState = totalTime / currentSize;
     // if time finished exit loop
-    while (elapsed_secs < totalTime - 1)
+    while (elapsed_secs < totalTime - 2)
     {
         nextState = getNextState(currentState);
         if(nextState.equals(currentState))
