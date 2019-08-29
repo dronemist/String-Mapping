@@ -68,31 +68,6 @@ state getNextState(state &currentState) {
                     }
                     k++;
                 }
-                // If we get a dash
-                // loop(k, max(0, j - 1), min(int(currentString.length()), j + 2))
-                // {
-                //     newString = currentString;
-                //     if(currentString[k] != '-')
-                //     {
-                //         // TODO: fix duplication of strings(don't make a newState everytime)
-                //         swap(newString[j], newString[k]);
-                //         newStrings.at(i) = newString;
-                //         state newState(newStrings, currentState.originalStrings);
-
-                //         // Saving the minimum state
-                //         // TODO: speed up cost
-                //         int temp = costOfState(costMap, newState, extraDashCost);
-                //         if(temp < minimum)
-                //         {
-                //             minimum = temp;
-                //             minState = newState; 
-                //         }
-                //         // else {
-                //         //     if(randomNumber < pow(M_E, minimum - temp))
-                //         //         return newState;
-                //         // }
-                //     }
-                // }  
             }
                     
         }

@@ -39,18 +39,17 @@ int maxLength() {
 /// - Parameters
 ///   - originalStrings: the original strings
 ///   - time: time in seconds to run the local search for
-state runLocalSearch() {
+void runLocalSearch() {
 
     int currentSize = maxLength();
     state currentState = randState(currentSize), nextState, minState;
     currentState.cost = costOfState(currentState);
     minState = currentState;
-    write(minState);
     clock_t begin = clock();
     double elapsed_secs = 0;
     float currentRunningTime = totalTime / currentSize;
     // if time finished exit loop
-    while (elapsed_secs < totalTime)
+    while (elapsed_secs < totalTime - 5)
     {
         nextState = getNextState(currentState);
         if(nextState.equals(currentState))
@@ -71,12 +70,11 @@ state runLocalSearch() {
             if(minState.cost > currentState.cost)
             {
                 minState = currentState;
-                write(minState);
             }
         }
         clock_t end = clock();
         elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
         
     }
-    return minState;
+    write(minState);
 }

@@ -7,6 +7,6 @@
 #include "state.h"
 
 /// This function runs the local search
-state runLocalSearch();
+void runLocalSearch();
 
 #endif

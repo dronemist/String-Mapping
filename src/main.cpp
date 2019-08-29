@@ -17,10 +17,5 @@ int main (int argc, char **argv) {
   fileReader(string(argv[argc - 2]));
   outputFileName = argv[argc - 1];
   totalTime = totalTime * 60;
-  state n = runLocalSearch();
-  loop(i, 0, n.finalStrings.size())
-  {
-    cout<<n.finalStrings.at(i)<<endl;
-  }
-  cout<<costOfState(n)<<endl;
+  runLocalSearch();
 }
