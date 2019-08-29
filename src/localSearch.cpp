@@ -48,8 +48,9 @@ void runLocalSearch() {
     clock_t begin = clock();
     double elapsed_secs = 0;
     float currentRunningTime = totalTime / currentSize;
+    float runPerState = totalTime / currentSize;
     // if time finished exit loop
-    while (elapsed_secs < totalTime - 5)
+    while (elapsed_secs < totalTime - 1)
     {
         nextState = getNextState(currentState);
         if(nextState.equals(currentState))
@@ -58,7 +59,7 @@ void runLocalSearch() {
             if(elapsed_secs > currentRunningTime)
             {
                 currentSize++;
-                currentRunningTime += currentRunningTime;
+                currentRunningTime += runPerState;
             }
             currentState = randState(currentSize);
             currentState.cost = costOfState(currentState);
@@ -74,7 +75,7 @@ void runLocalSearch() {
         }
         clock_t end = clock();
         elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
-        
+
     }
     write(minState);
 }
