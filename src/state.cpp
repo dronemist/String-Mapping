@@ -9,8 +9,8 @@ using namespace std;
 
 /// Constructor for state
 // TODO: calculate cost in the constructor
-state::state(vector<string> finalStrings) {
-    finalStrings = finalStrings;
+state::state(vector<string> initialStrings) {
+    finalStrings = initialStrings;
     originalStrings = strings;
 }
 

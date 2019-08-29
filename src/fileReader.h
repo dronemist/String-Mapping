@@ -2,6 +2,7 @@
 #define FILEREADER_INCLUDE
 #include <string>
 #include <vector>
+#include <map>
 /// Map for the cost vector
 typedef std::map<char, std::map<char, int> > costDatabase; 
 

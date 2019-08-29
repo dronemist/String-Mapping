@@ -34,8 +34,6 @@ int conversionCost(string string1) {
     return dashCount * extraDashCost;
 }
 
-// TODO: make cost function more effecient (given the previous state)
-
 /// This function returns the cost of a state
 ///  - Parameters: 
 ///    - costArray: vector containing all the cost
@@ -44,7 +42,6 @@ int conversionCost(string string1) {
 int costOfState(state &currentState) {
     
     int cost = 0;
-    // TODO: a copy is being formed, fix it!
     vector<string> strings = currentState.finalStrings;
     // Calculating conversion cost
     loop(i, 0, strings.size())

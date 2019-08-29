@@ -33,9 +33,10 @@ int maxLength() {
 state runLocalSearch() {
 
     int currentSize = maxLength();
+    currentSize = 17;
     state currentState = randState(currentSize), nextState, minState;
     currentState.cost = costOfState(currentState);
-
+    int numberOfRandomRestarts = 0;
     minState = currentState;
     clock_t begin = clock();
     double elapsed_secs = 0;
@@ -47,13 +48,21 @@ state runLocalSearch() {
         {
             // Random restart
             // currentSize++;
+            // if(numberOfRandomRestarts == 0) {
+            //     currentSize++;
+            //     numberOfRandomRestarts = 21;
+            // }
+            // cout<<numberOfRandomRestarts++<<endl;
             currentState = randState(currentSize);
             currentState.cost = costOfState(currentState);
+            // if(currentState.cost == 706)
+            // break;
             // loop(i, 0, currentState.finalStrings.size())
             // {
             //     cout<<currentState.finalStrings.at(i)<<endl;
             // }
-            // cout<<costOfState(cost, currentState, extraDashCost)<<endl;
+            // cout<<currentState.cost<<endl;
+            // numberOfRandomRestarts--;
         }
         else
         {

@@ -22,7 +22,6 @@ struct state {
     /// The cost of the state
     int cost;
 
-    // TODO: optimise string equality check
     /// This function checks for string equality
     bool equals(state &);
 };

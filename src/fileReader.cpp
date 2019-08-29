@@ -48,11 +48,12 @@ void toCostDatabase(vector<vector<int> > &costVector) {
 void fileReader(string fileName) {
     
     ifstream inFile(fileName);
-    string line;
+    string line = "";
     int count = 0;
     int vocabularySize, numberOfStrings;
     vector<vector<int> > costVector;
-    while (getline(inFile, line)) 
+    vector<int> costTemp;
+    while (inFile>>line) 
     {
         switch (count) 
         {
@@ -75,15 +76,10 @@ void fileReader(string fileName) {
                 stringstream ss(line);
                 string temp;
                 // Adding the first character
-                getline(ss, temp, ',');
-                vocabulary += temp;
-                while (getline(ss, temp, ','))
-                {
-                    temp = temp.substr(1, temp.length() - 1);
-                    vocabulary += temp;
-                }
+                vocabulary += line[0];
                 // TODO: handle incorrect input
-                count++;
+                if(vocabulary.size() == vocabularySize)
+                    count++;
                 break;  
             }
             case 3:  
@@ -110,19 +106,16 @@ void fileReader(string fileName) {
                 break;
             }
             case 6:
-            {
-                // Inputting costs
-                stringstream ss(line);
-                string temp;
-                vector<int> costTemp;
-                while (getline(ss, temp, ' '))
+            {  
+                costTemp.push_back(stoi(line));
+                if(costTemp.size() == vocabularySize + 1) 
                 {
-                    costTemp.push_back(stoi(temp));
+                    costVector.push_back(costTemp); 
+                    costTemp.clear();
                 }
-                costVector.push_back(costTemp);
-                if(costVector.size() == vocabularySize + 1) 
-                    count++;    
-                break;
+                if(costVector.size() == vocabularySize + 1)
+                    count++;
+                break;    
             }
             default:
                 break;
